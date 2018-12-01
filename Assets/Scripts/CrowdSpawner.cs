@@ -17,7 +17,8 @@ public class CrowdSpawner : MonoBehaviour
     {
         for(int i = 0; i < crowdSize; i++)
         {
-            Patrons.Add(RandomSpawnPatron());
+            RandomSpawnPatron();
+            //Patrons.Add(RandomSpawnPatron());
         }
     }
 
@@ -33,15 +34,22 @@ public class CrowdSpawner : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        //MouseSpawnPatron()
+    }
+
+    private void MouseSpawnPatron()
+    {
+        if (Input.GetMouseButtonDown(0))
         {
             Vector3 position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             position.z = 0.0f;
 
             GameObject patron = Instantiate(Patron, position, Quaternion.identity);
-            Patrons.Add(patron);
+            //Patrons.Add(patron);
 
-            patron.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, -100.0f));
+            Rigidbody2D rigidbody2D = patron.GetComponent<Rigidbody2D>();
+
+            patron.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, -1000.0f));
         }
     }
 }
