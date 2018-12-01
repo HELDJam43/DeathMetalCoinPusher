@@ -24,8 +24,8 @@ public class CrowdSpawner : MonoBehaviour
 
     private GameObject RandomSpawnPatron()
     {
-        float x = Random.Range(0.0f, 2.0f);
-        float y = Random.Range(0.0f, 2.0f);
+        float x = Random.Range(0.0f, 8.0f);
+        float y = Random.Range(0.0f, 8.0f);
 
         Vector3 position = transform.position + new Vector3(x, y, 0);
         

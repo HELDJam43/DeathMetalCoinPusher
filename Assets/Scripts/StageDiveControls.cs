@@ -128,7 +128,6 @@ public class StageDiveControls : MonoBehaviour
 
         // Send the stage dive
         _activeStageDiver.simulated = true;
-        _activeStageDiver.mass = 1.0f;
         _activeStageDiver.AddForce(new Vector2(0f, -StageDiveForce));
 
         _activeStageDiver = null;
