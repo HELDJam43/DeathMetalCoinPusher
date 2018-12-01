@@ -165,7 +165,7 @@ Prefab:
     - target: {fileID: 114924754200868020, guid: d98024954036f404b9aa6d82028eaada,
         type: 2}
       propertyPath: StageDiveForce
-      value: 150
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 114924754200868020, guid: d98024954036f404b9aa6d82028eaada,
         type: 2}
