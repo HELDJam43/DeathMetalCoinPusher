@@ -24,7 +24,7 @@ public class Patron : MonoBehaviour
     private IEnumerator PitDeath(Vector2 dropPos)
     {
         CrowdSpawner.RemovePatron(this.gameObject);
-        
+
         _isDying = true;
         _rigidBody.simulated = false;
         float _pitDeathDeltaScale = this.transform.localScale.x / PitDeathTime;
