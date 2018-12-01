@@ -53,8 +53,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TimeBetweenStageDivers: 1
   StageMovementSpeed: 3
-  StageDiveForce: 100
-  StageDiverPrefab: {fileID: 1494605716211624, guid: 0be0c2d537fdc3a4aa0fce60621030d8,
+  StageDiveForce: 5000
+  StageDiverPrefab: {fileID: 1532948121322154, guid: 67861b58928d840658bf228f77461da0,
     type: 2}
   LeftStageBoundary: {fileID: 0}
   RightStageBoundary: {fileID: 0}
