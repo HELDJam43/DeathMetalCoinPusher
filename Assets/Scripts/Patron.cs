@@ -11,6 +11,7 @@ public class Patron : MonoBehaviour
     private bool _isDying = false;
 
     private Rigidbody2D _rigidBody;
+    public PatronDrawOrder _drawOrder;
 
     public void StartPitDeath(Vector2 dropPos)
     {

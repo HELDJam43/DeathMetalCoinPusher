@@ -103,6 +103,7 @@ GameObject:
   - component: {fileID: 50801434637829892}
   - component: {fileID: 58356600993327560}
   - component: {fileID: 114406183345709382}
+  - component: {fileID: 114509388338924158}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -286,6 +287,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PitDeathTime: 0.56
+  _drawOrder: {fileID: 114509388338924158}
+--- !u!114 &114509388338924158
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1532948121322154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 759cfdf1b1bf94836bd288e003116a95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CurrentIndex: 0
+  NumberOfGroups: 0
+  _head: {fileID: 212106604481821642}
+  _handsAndFeet:
+  - {fileID: 212171580950929938}
+  - {fileID: 212750933933198562}
+  - {fileID: 212163085836715524}
+  - {fileID: 212085170846961652}
+  _torso: {fileID: 212317518839827248}
 --- !u!212 &212085170846961652
 SpriteRenderer:
   m_ObjectHideFlags: 1

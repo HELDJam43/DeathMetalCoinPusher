@@ -51,6 +51,7 @@ public class CrowdSpawner : MonoBehaviour
     private void Update()
     {
         //MouseSpawnPatron()
+        UpdateDrawPositions();
     }
 
     private void MouseSpawnPatron()
@@ -66,6 +67,54 @@ public class CrowdSpawner : MonoBehaviour
             Rigidbody2D rigidbody2D = patron.GetComponent<Rigidbody2D>();
 
             patron.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, -1000.0f));
+        }
+    }
+
+    private void UpdateDrawPositions()
+    {
+        List<GameObject> copy = new List<GameObject>();
+        foreach (GameObject patron in Patrons)
+            copy.Add(patron);
+        copy.Sort(CompareDrawPositions);
+        for (int i = 0; i < copy.Count; i++)
+        {
+            copy[i].GetComponent<PatronDrawOrder>().SetIndex(i);
+        }
+    }
+
+    private int CompareDrawPositions(GameObject x, GameObject y)
+    {
+        if (x == null)
+        {
+            if (y == null)
+            {
+                return 0;
+            }
+            else
+            {
+                return 1;
+            }
+
+        }
+        else
+        {
+            if (y == null)
+            {
+                return -1;
+            }
+            else
+            {
+                bool xGreater = x.transform.position.y > y.transform.position.y;
+
+                if (xGreater)
+                {
+                    return -1;
+                }
+                else
+                {
+                    return 1;
+                }
+            }
         }
     }
 }
