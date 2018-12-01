@@ -22,6 +22,8 @@ public class Patron : MonoBehaviour
 
     private IEnumerator PitDeath(Vector2 dropPos)
     {
+        CrowdSpawner.RemovePatron(this.gameObject);
+        
         _isDying = true;
         _rigidBody.simulated = false;
         float _pitDeathDeltaScale = this.transform.localScale.x / PitDeathTime;
@@ -37,11 +39,18 @@ public class Patron : MonoBehaviour
             yield return null;
         }
 
+        Destroy(this.gameObject);
+    }
+
+    private void OnDestroy()
+    {
+        StopAllCoroutines();
     }
 
     private void Start()
     {
         _rigidBody = GetComponent<Rigidbody2D>();
+        InvokeRepeating("RandomForce", 2, Random.Range(3, 10.0f));
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -49,11 +58,11 @@ public class Patron : MonoBehaviour
         //Rigidbody2D rigidbody2D = collision.otherCollider.gameObject.GetComponent<Rigidbody2D>();
     }
 
-    private void FixedUpdate()
+    private void RandomForce()
     {
-        if(_rigidBody.IsSleeping())
-        {
-            _rigidBody.mass = 0.0f;
-        }
+        float x = Random.Range(-10.0f, 10.0f);
+        float y = Random.Range(-0.5f, 10.0f);
+
+        _rigidBody.AddForce(new Vector2(x, y), ForceMode2D.Impulse);
     }
 }

@@ -115,6 +115,8 @@ public class StageDiveControls : MonoBehaviour
         float randX = Random.Range(LeftStageBoundary.position.x + 1f, RightStageBoundary.position.x - 1f);
         Vector3 stageDiverPos = new Vector3(randX, LeftStageBoundary.position.y);
         GameObject temp = Instantiate(StageDiverPrefab);
+        CrowdSpawner.AddPatron(temp);
+
         _activeStageDiver = temp.GetComponent<Rigidbody2D>();
         _activeStageDiver.simulated = false;
         _activeStageDiver.transform.position = stageDiverPos;
@@ -128,7 +130,7 @@ public class StageDiveControls : MonoBehaviour
 
         // Send the stage dive
         _activeStageDiver.simulated = true;
-        _activeStageDiver.AddForce(new Vector2(0f, -StageDiveForce));
+        _activeStageDiver.AddForce(new Vector2(0f, -StageDiveForce), ForceMode2D.Impulse);
 
         _activeStageDiver = null;
         ResetDiveTimer();
