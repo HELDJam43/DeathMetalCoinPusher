@@ -234,10 +234,10 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 2
+  m_Mass: 1.75
   m_LinearDrag: 2
   m_AngularDrag: 0
-  m_GravityScale: 0
+  m_GravityScale: -0.05
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -255,9 +255,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.22, y: 0.15}
+  m_Offset: {x: -0.23144487, y: 0.25}
   serializedVersion: 2
-  m_Radius: 0.25
+  m_Radius: 0.42545572
 --- !u!111 &111500180477274556
 Animation:
   m_ObjectHideFlags: 1
@@ -266,7 +266,7 @@ Animation:
   m_GameObject: {fileID: 1532948121322154}
   m_Enabled: 1
   serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: d813cf41649a5481db4c826f2ff2f4dc, type: 2}
+  m_Animation: {fileID: 7400000, guid: 4d56329bcfc3649f1a13555c97b9c28a, type: 2}
   m_Animations:
   - {fileID: 7400000, guid: 4d56329bcfc3649f1a13555c97b9c28a, type: 2}
   - {fileID: 7400000, guid: d813cf41649a5481db4c826f2ff2f4dc, type: 2}

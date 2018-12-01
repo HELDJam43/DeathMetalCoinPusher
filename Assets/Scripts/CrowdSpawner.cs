@@ -4,9 +4,9 @@ using UnityEngine;
 public class CrowdSpawner : MonoBehaviour
 {
     public GameObject Patron;
-    private const int crowdSize = 30;
+    public static int MaxCrowdSize = 20;
 
-    public static List<GameObject> Patrons = new List<GameObject>();
+    private static List<GameObject> Patrons = new List<GameObject>();
 
     private void Start()
     {
@@ -15,21 +15,37 @@ public class CrowdSpawner : MonoBehaviour
 
     private void SpawnCrowd()
     {
-        for(int i = 0; i < crowdSize; i++)
+        for(int i = 0; i < MaxCrowdSize; i++)
         {
-            RandomSpawnPatron();
-            //Patrons.Add(RandomSpawnPatron());
+            GameObject patron = RandomSpawnPatron();
+           
+            Patrons.Add(patron);
         }
     }
 
     private GameObject RandomSpawnPatron()
     {
-        float x = Random.Range(0.0f, 8.0f);
-        float y = Random.Range(0.0f, 8.0f);
+        float x = Random.Range(-8.0f, 8.0f);
+        float y = Random.Range(-8.0f, 8.0f);
 
         Vector3 position = transform.position + new Vector3(x, y, 0);
         
         return Instantiate(Patron, position, Quaternion.identity);
+    }
+
+    public static void AddPatron(GameObject patron)
+    {
+        Patrons.Add(patron);
+    }
+
+    public static void RemovePatron(GameObject patron)
+    {
+        Patrons.Remove(patron);
+    }
+
+    public static int PatronCount()
+    {
+        return Patrons.Count;
     }
 
     private void Update()
@@ -45,7 +61,7 @@ public class CrowdSpawner : MonoBehaviour
             position.z = 0.0f;
 
             GameObject patron = Instantiate(Patron, position, Quaternion.identity);
-            //Patrons.Add(patron);
+            Patrons.Add(patron);
 
             Rigidbody2D rigidbody2D = patron.GetComponent<Rigidbody2D>();
 

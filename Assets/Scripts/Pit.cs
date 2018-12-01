@@ -7,6 +7,7 @@ public class Pit : MonoBehaviour
         Patron patron = collider.GetComponent<Patron>();
         if(patron != null)
         {
+            CrowdSpawner.RemovePatron(patron.gameObject);
             Destroy(patron.gameObject);
         }
     }
