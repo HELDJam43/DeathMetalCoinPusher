@@ -11,7 +11,9 @@ public class Patron : MonoBehaviour
     private bool _isDying = false;
 
     private Rigidbody2D _rigidBody;
+
     public PatronDrawOrder _drawOrder;
+    public PatronAnimatorController AnimController;
 
     public void StartPitDeath(Vector2 dropPos)
     {
@@ -27,6 +29,7 @@ public class Patron : MonoBehaviour
         
         _isDying = true;
         _rigidBody.simulated = false;
+        AnimController.FallingInPit();
         float _pitDeathDeltaScale = this.transform.localScale.x / PitDeathTime;
         float distToDropPos = (new Vector3(dropPos.x, dropPos.y, 0f) - transform.position).magnitude;
         float moveDelta = distToDropPos / PitDeathTime;

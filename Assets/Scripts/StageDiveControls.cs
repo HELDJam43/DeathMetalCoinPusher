@@ -34,7 +34,6 @@ public class StageDiveControls : MonoBehaviour
         }
     }
 
-
     private void Start () 
     {
         ResetDiveTimer();
@@ -121,6 +120,7 @@ public class StageDiveControls : MonoBehaviour
         _activeStageDiver.simulated = false;
         _activeStageDiver.mass = 5.0f;
         _activeStageDiver.transform.position = stageDiverPos;
+        _activeStageDiver.GetComponent<PatronAnimatorController>().OnStage();
 
         // TODO - Enable the Arrow image
     }
@@ -132,6 +132,7 @@ public class StageDiveControls : MonoBehaviour
         // Send the stage dive
         _activeStageDiver.simulated = true;
         _activeStageDiver.AddForce(new Vector2(0f, -StageDiveForce), ForceMode2D.Impulse);
+        _activeStageDiver.GetComponent<PatronAnimatorController>().StageDive();
 
         StartCoroutine(SetMass());
         ResetDiveTimer();
@@ -147,6 +148,7 @@ public class StageDiveControls : MonoBehaviour
         if(_activeStageDiver2 != null)
         {
             _activeStageDiver2.mass = 0.5f;
+            _activeStageDiver2.GetComponent<PatronAnimatorController>().Idle();
         }
     }
 }

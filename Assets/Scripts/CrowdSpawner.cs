@@ -24,6 +24,7 @@ public class CrowdSpawner : MonoBehaviour
             if (spawnArea.OverlapPoint(position))
             {
                 GameObject patron = SpawnPatron(position);
+                patron.GetComponent<PatronAnimatorController>().Idle();
                 Patrons.Add(patron);
             }
         }
@@ -68,6 +69,7 @@ public class CrowdSpawner : MonoBehaviour
             position.z = 0.0f;
 
             GameObject patron = Instantiate(Patron, position, Quaternion.identity);
+            patron.GetComponent<PatronAnimatorController>().Idle();
             Patrons.Add(patron);
 
             Rigidbody2D rigidbody2D = patron.GetComponent<Rigidbody2D>();
@@ -76,6 +78,7 @@ public class CrowdSpawner : MonoBehaviour
         }
     }
 
+    // CBO - this is terribly inefficient and I'm sorry
     private void UpdateDrawPositions()
     {
         List<GameObject> copy = new List<GameObject>();

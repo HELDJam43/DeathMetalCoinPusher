@@ -104,6 +104,7 @@ GameObject:
   - component: {fileID: 58356600993327560}
   - component: {fileID: 114406183345709382}
   - component: {fileID: 114509388338924158}
+  - component: {fileID: 114476457490347850}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -288,6 +289,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PitDeathTime: 0.56
   _drawOrder: {fileID: 114509388338924158}
+  AnimController: {fileID: 114476457490347850}
+--- !u!114 &114476457490347850
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1532948121322154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4440cdc8b52de48919f6a08034c29bde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animator: {fileID: 111500180477274556}
+  _onStageClip: {fileID: 7400000, guid: 4d56329bcfc3649f1a13555c97b9c28a, type: 2}
+  _stageDiveClip: {fileID: 7400000, guid: d813cf41649a5481db4c826f2ff2f4dc, type: 2}
+  _idleClips:
+  - {fileID: 7400000, guid: 4d56329bcfc3649f1a13555c97b9c28a, type: 2}
+  _fallingClip: {fileID: 7400000, guid: d813cf41649a5481db4c826f2ff2f4dc, type: 2}
 --- !u!114 &114509388338924158
 MonoBehaviour:
   m_ObjectHideFlags: 1
