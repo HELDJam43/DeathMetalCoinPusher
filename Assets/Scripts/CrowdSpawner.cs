@@ -8,40 +8,28 @@ public class CrowdSpawner : MonoBehaviour
 
     private static List<GameObject> Patrons = new List<GameObject>();
 
-    private BoxCollider2D spawnArea;
     private void Start()
     {
-        spawnArea = GetComponent<BoxCollider2D>();
-
         SpawnCrowd();
     }
 
     private void SpawnCrowd()
     {
-        while(Patrons.Count <= MaxCrowdSize)
+        for(int i = 0; i < MaxCrowdSize; i++)
         {
-            Vector3 position = GetRandomPosition();
-
-            if(spawnArea.OverlapPoint(position))
-            {
-                GameObject patron = RandomSpawnPatron(position);
-                Patrons.Add(patron);
-            }
+            GameObject patron = RandomSpawnPatron();
+           
+            Patrons.Add(patron);
         }
     }
 
-    private Vector3 GetRandomPosition()
+    private GameObject RandomSpawnPatron()
     {
-        float x = Random.Range(-2.0f, 2.0f);
-        float y = Random.Range(-2.0f, 2.0f);
+        float x = Random.Range(-8.0f, 8.0f);
+        float y = Random.Range(-8.0f, 8.0f);
 
         Vector3 position = transform.position + new Vector3(x, y, 0);
-
-        return position;
-    }
-
-    private GameObject RandomSpawnPatron(Vector3 position)
-    {
+        
         return Instantiate(Patron, position, Quaternion.identity);
     }
 
