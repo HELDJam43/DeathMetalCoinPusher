@@ -119,6 +119,7 @@ public class StageDiveControls : MonoBehaviour
 
         _activeStageDiver = temp.GetComponent<Rigidbody2D>();
         _activeStageDiver.simulated = false;
+        _activeStageDiver.mass = 5.0f;
         _activeStageDiver.transform.position = stageDiverPos;
 
         // TODO - Enable the Arrow image
@@ -132,7 +133,20 @@ public class StageDiveControls : MonoBehaviour
         _activeStageDiver.simulated = true;
         _activeStageDiver.AddForce(new Vector2(0f, -StageDiveForce), ForceMode2D.Impulse);
 
-        _activeStageDiver = null;
+        StartCoroutine(SetMass());
         ResetDiveTimer();
+    }
+
+    private Rigidbody2D _activeStageDiver2;
+    private IEnumerator SetMass()
+    {
+        _activeStageDiver2 = _activeStageDiver;
+        _activeStageDiver = null;
+
+        yield return new WaitForSeconds(2.0f);
+        if(_activeStageDiver2 != null)
+        {
+            _activeStageDiver2.mass = 0.5f;
+        }
     }
 }

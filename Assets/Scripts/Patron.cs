@@ -51,7 +51,7 @@ public class Patron : MonoBehaviour
     private void Start()
     {
         _rigidBody = GetComponent<Rigidbody2D>();
-        InvokeRepeating("RandomForce", 2, Random.Range(3, 10.0f));
+        InvokeRepeating("RandomForce", 1, Random.Range(0.25f, 1.0f));
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -62,8 +62,8 @@ public class Patron : MonoBehaviour
 
     private void RandomForce()
     {
-        float x = Random.Range(-10.0f, 10.0f);
-        float y = Random.Range(-0.5f, 10.0f);
+        float x = Random.Range(-5.0f, 5.0f);
+        float y = Random.Range(-0.5f, 5.0f);
 
         _rigidBody.AddForce(new Vector2(x, y), ForceMode2D.Impulse);
     }
