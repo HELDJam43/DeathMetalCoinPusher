@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PatronAnimatorController : MonoBehaviour
 {
@@ -20,6 +18,8 @@ public class PatronAnimatorController : MonoBehaviour
     private AnimationClip _fallingClip;
 
     private bool _isIdle = false;
+
+    private float _currentBPS = 1;
 
     public void OnStage()
     {
@@ -56,19 +56,34 @@ public class PatronAnimatorController : MonoBehaviour
 
 
     // Use this for initialization
-    void Start()
+    private void Start()
     {
-        //Idle();
+        UpdateBPS();
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         // TODO - Change up the idle occasionally
         if (_isIdle)
         {
             // CBO - warning supression!
             _isIdle = true;
+        }
+
+        if (MusicManager.BeatsPerSecond != _currentBPS)
+        {
+            UpdateBPS();
+        }
+    }
+
+    private void UpdateBPS()
+    {
+        _currentBPS = MusicManager.BeatsPerSecond;
+
+        foreach (AnimationState state in Animator)
+        {
+            state.speed = _currentBPS;
         }
     }
 }
