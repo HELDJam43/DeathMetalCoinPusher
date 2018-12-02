@@ -124,6 +124,7 @@ public class StageDiveControls : MonoBehaviour
         _activeStageDiver.mass = 5.0f;
         _activeStageDiver.transform.position = stageDiverPos;
         _activeStageDiver.GetComponent<PatronAnimatorController>().OnStage();
+        _activeStageDiver.GetComponent<PatronDrawOrder>().SetStageDiverLayer();
     }
 
     private void StartStageDive()
@@ -247,6 +248,7 @@ public class StageDiveControls : MonoBehaviour
         _activeStageDiver2.GetComponent<PatronAnimatorController>().Idle();
         _activeStageDiver2.simulated = true;
         _activeStageDiver2.mass = 1.0f;
+        _activeStageDiver2.GetComponent<PatronDrawOrder>().SetCrowdLayer();
         _activeStageDiver2 = null;
     }
 
@@ -261,6 +263,8 @@ public class StageDiveControls : MonoBehaviour
         {
             _activeStageDiver2.mass = 0.5f;
             _activeStageDiver2.GetComponent<PatronAnimatorController>().Idle();
+            _activeStageDiver2.GetComponent<PatronDrawOrder>().SetCrowdLayer();
+            _activeStageDiver2 = null;
         }
     }
 
