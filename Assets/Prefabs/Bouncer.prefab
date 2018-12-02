@@ -248,7 +248,7 @@ Animation:
   m_Animation: {fileID: 7400000, guid: d5e5dc3c65b7c4815b10cb2e7af3a063, type: 2}
   m_Animations:
   - {fileID: 7400000, guid: d5e5dc3c65b7c4815b10cb2e7af3a063, type: 2}
-  - {fileID: 7400000, guid: d5e5dc3c65b7c4815b10cb2e7af3a063, type: 2}
+  - {fileID: 7400000, guid: 79e64dc50e0584b65af435f9accababf, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
@@ -264,7 +264,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7190bf8f525226c448d799ef05bbc344, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BouncerForce: 15
+  _animator: {fileID: 111774840936703156}
+  BouncerForce: 20
 --- !u!212 &212038660837945132
 SpriteRenderer:
   m_ObjectHideFlags: 1
