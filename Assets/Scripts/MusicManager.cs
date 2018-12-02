@@ -28,7 +28,7 @@ public class MusicManager : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
     {
-		if (Source.clip == IntroLoop && Source.time >= Source.clip.length)
+		if (Source.clip == IntroLoop && !Source.isPlaying)
         {
             PlayMain();
         }
