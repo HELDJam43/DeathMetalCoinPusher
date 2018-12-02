@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StageDiveControls : MonoBehaviour 
+public class StageDiveControls : MonoBehaviour
 {
     [SerializeField]
     private float TimeBetweenStageDivers;
@@ -34,13 +34,13 @@ public class StageDiveControls : MonoBehaviour
         }
     }
 
-    private void Start () 
+    private void Start ()
     {
         _diveTimer = 0f;
         _divingSwingers = new List<Rigidbody2D>();
 	}
-	
-	private void Update () 
+
+	private void Update ()
     {
         if (GameManager.CurrentGameState != GameManager.GameState.Play) return;
 
@@ -177,7 +177,7 @@ public class StageDiveControls : MonoBehaviour
 
         _divingSwingers.Add(diver);
     }
-  
+
     private float deltaTime = 0.0f;
     private float magnitude = 0.0f;
     private void FixedUpdate()
