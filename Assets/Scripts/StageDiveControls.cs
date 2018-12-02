@@ -41,6 +41,8 @@ public class StageDiveControls : MonoBehaviour
 	
 	private void Update () 
     {
+        if (GameManager.CurrentGameState != GameManager.GameState.Play) return;
+
         UpdateDiveTimer();
 
         if (_isActiveStageDiverAvailable)

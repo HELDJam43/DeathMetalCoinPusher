@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
 
 public class PointsAddedEvent : UnityEvent<int>
@@ -10,34 +8,30 @@ public class PointsAddedEvent : UnityEvent<int>
 
 public class GameManager : MonoBehaviour 
 {
-    public static GameManager Instance
-    {
-        get
-        {
-            return _instance;
-        }
-    }
+    public static GameManager Instance { get; private set; }
 
     public PointsAddedEvent OnPointsAdded;
 
-    public void AddPoints(int points)
+    public enum GameState
     {
-        CurrentScore += points;
-        OnPointsAdded.Invoke(points);
+        Title,
+        Play,
+        Ending
     }
 
-    private static GameManager _instance;
     public int CurrentScore
     {
         get;
         private set;
     }
 
+    public static GameState CurrentGameState = GameState.Title;
+
     private void Awake()
     {
-        if (_instance == null)
+        if (Instance == null)
         {
-            _instance = this;
+            Instance = this;
         }
         else
         {
@@ -52,14 +46,14 @@ public class GameManager : MonoBehaviour
         CurrentScore = 0;
     }
 
-    // Use this for initialization
-    void Start () 
+    private void Start()
     {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+        FindObjectOfType<UIGameTimer>().StartCountdownTimer();
+    }
+
+    public void AddPoints(int points)
+    {
+        CurrentScore += points;
+        OnPointsAdded.Invoke(points);
+    }
 }
