@@ -8,7 +8,7 @@ public class CrowdSpawner : MonoBehaviour
 
     public static int MaxCrowdSize = 20;
 
-    private static List<GameObject> Patrons = new List<GameObject>();
+    public static List<GameObject> Patrons = new List<GameObject>();
     private BoxCollider2D spawnArea;
 
     private void Awake()

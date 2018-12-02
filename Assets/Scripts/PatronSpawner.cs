@@ -19,8 +19,7 @@ public class PatronSpawner : MonoBehaviour
 
     private GameObject GetRandomPatronPrefab()
     {
-        //return Patrons[Random.Range(0, Patrons.Length)];
-        return Patrons[1];
+        return Patrons[Random.Range(0, Patrons.Length)];
     }
 
     public Door door = Door.Left;

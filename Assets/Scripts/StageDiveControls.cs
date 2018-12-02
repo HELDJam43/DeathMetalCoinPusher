@@ -137,10 +137,9 @@ public class StageDiveControls : MonoBehaviour
                 StartBangerStageDive();
                 break;
             case Patron.PatronType.Swinger:
-                StartSwingStageDive();
+                StartSwingerStageDive();
                 break;
         }
-
     }
 
     private void StartBangerStageDive()
@@ -152,43 +151,24 @@ public class StageDiveControls : MonoBehaviour
         ResetDiveTimer();
     }
 
-    private void StartSwingStageDive()
+    private void StartSwingerStageDive()
     {
-        Vector3 position = transform.localPosition + (Vector3.down * 5);
-        StartCoroutine(JumpHeight(position));
+       // Vector3 position = transform.localPosition + (Vector3.down * Random.Range(2.0f, 5.0f));
+        StartBangerStageDive();
     }
 
-    private IEnumerator JumpHeight(Vector3 dropPos)
+    private void AddExplosionLanding()
     {
-        _activeStageDiver2 = _activeStageDiver;
-        _activeStageDiver = null;
-
-        Rigidbody2D rigidbody2D = _activeStageDiver2.GetComponent<Rigidbody2D>();
-        rigidbody2D.simulated = false;
-
-        float length = Vector3.Distance(_activeStageDiver2.transform.localPosition, dropPos) * 0.5f;
-
-        while (Vector3.Distance(_activeStageDiver2.transform.localPosition, dropPos) > 1)
+        foreach(GameObject patron in CrowdSpawner.Patrons)
         {
-            float magnitude = (dropPos - _activeStageDiver2.transform.position).magnitude;
-            magnitude = Mathf.Clamp(magnitude, 4, 6);
-
-            _activeStageDiver2.transform.localScale = new Vector3(magnitude, magnitude, 1.0f);
-
-            float distToDropPos = (dropPos - transform.position).magnitude;
-            float moveDelta = distToDropPos * 4;
-            Vector3 position = Vector3.MoveTowards(_activeStageDiver2.transform.position, dropPos, moveDelta * Time.deltaTime);
-            position.z = 0.0f;
-
-            _activeStageDiver2.transform.position = position;
-            yield return null;
+            if(_activeStageDiver2.gameObject != patron)
+            {
+                if (Vector3.Distance(_activeStageDiver2.transform.localPosition, patron.transform.localPosition) <= 5)
+                {
+                    patron.GetComponent<Rigidbody2D>().AddExplosionForce(20, _activeStageDiver2.transform.localPosition, 5);
+                }
+            }
         }
-
-        _activeStageDiver2.transform.localScale = new Vector3(4, 4, 1);
-        _activeStageDiver2.simulated = true;
-        _activeStageDiver2.mass = 0.5f;
-      
-        ResetDiveTimer();
     }
 
     private Rigidbody2D _activeStageDiver2;
