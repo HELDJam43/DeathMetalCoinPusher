@@ -36,7 +36,7 @@ public class StageDiveControls : MonoBehaviour
 
     private void Start () 
     {
-        ResetDiveTimer();
+        _diveTimer = 0f;
 	}
 	
 	private void Update () 
