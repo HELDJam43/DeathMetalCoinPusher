@@ -11,6 +11,12 @@ public class CrowdSpawner : MonoBehaviour
     private static List<GameObject> Patrons = new List<GameObject>();
     private BoxCollider2D spawnArea;
 
+    private void Awake()
+    {
+        if (Patrons == null)
+            Patrons = new List<GameObject>();
+    }
+
     private void Start()
     {
         spawnArea = GetComponent<BoxCollider2D>();
@@ -65,6 +71,11 @@ public class CrowdSpawner : MonoBehaviour
         UpdateDrawPositions();
     }
 
+    private void OnDestroy()
+    {
+        Patrons = null;
+    }
+
     private void MouseSpawnPatron()
     {
         if (Input.GetMouseButtonDown(0))
@@ -92,6 +103,10 @@ public class CrowdSpawner : MonoBehaviour
         copy.Sort(CompareDrawPositions);
         for (int i = 0; i < copy.Count; i++)
         {
+            // CBO - scene restart issue
+            if (copy[i] == null)
+                break;
+
             copy[i].GetComponent<PatronDrawOrder>().SetIndex(i);
         }
     }
