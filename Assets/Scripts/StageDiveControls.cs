@@ -151,24 +151,103 @@ public class StageDiveControls : MonoBehaviour
         ResetDiveTimer();
     }
 
+    private Vector3 _swingerLaunchFromPosition = Vector3.zero;
+
+    private Vector3 _swingerLaunchToPosition = Vector3.zero;
+    private Vector3 _swingerLaunchToPosition2 = Vector3.zero;
+    private Vector3 zGravity = new Vector3(0, 0, -9.8f);
+
     private void StartSwingerStageDive()
     {
-       // Vector3 position = transform.localPosition + (Vector3.down * Random.Range(2.0f, 5.0f));
-        StartBangerStageDive();
+        _activeStageDiver2 = _activeStageDiver;
+        _activeStageDiver = null;
+
+        deltaTime = 0.0f;
+
+        _swingerLaunchFromPosition = _activeStageDiver2.transform.localPosition;
+
+        float r = Random.Range(10.0f, 20.0f);
+        _swingerLaunchToPosition = _activeStageDiver2.transform.localPosition + (Vector3.forward * r);
+        _swingerLaunchToPosition2 = _activeStageDiver2.transform.localPosition + (Vector3.down * r);
+
+        magnitude = (new Vector3(_swingerLaunchToPosition2.x, _swingerLaunchToPosition2.y, 0f) - _activeStageDiver2.transform.localPosition).magnitude;
+    }
+  
+    private float deltaTime = 0.0f;
+    private float magnitude = 0.0f;
+    private void FixedUpdate()
+    {
+        if(_activeStageDiver2 != null && _activeStageDiver2.GetComponent<Patron>().patronType == Patron.PatronType.Swinger)
+        {
+            if (Vector3.Distance(_activeStageDiver2.transform.localPosition, _swingerLaunchToPosition2) > 0.1f)
+            {
+                _activeStageDiver2.transform.localPosition = Vector3.MoveTowards(_activeStageDiver2.transform.localPosition, _swingerLaunchToPosition2, magnitude * Time.deltaTime);
+
+                deltaTime += Time.deltaTime;
+                Vector3 p = SampleParabolaDerivative2D(_swingerLaunchFromPosition, _swingerLaunchToPosition, 2, 2, deltaTime);
+
+                float scale = 4 + (3 * Mathf.Clamp(p.y, -0.5f, 1f));
+                _activeStageDiver2.transform.localScale = new Vector3(scale, scale, 1.0f);
+            }
+            else
+            {
+   
+                StartCoroutine(AddExplosionLanding());
+            }
+        }
     }
 
-    private void AddExplosionLanding()
+    public static Vector3 SampleParabola(Vector3 start, Vector3 end, float height, float t)
     {
-        foreach(GameObject patron in CrowdSpawner.Patrons)
+        if (Mathf.Abs(start.y - end.y) < 0.1f)
+        {
+            //start and end are roughly level, pretend they are - simpler solution with less steps
+            Vector3 travelDirection = end - start;
+            Vector3 result = start + t * travelDirection;
+            result.y += Mathf.Sin(t * Mathf.PI) * height;
+            return result;
+        }
+        else
+        {
+            //start and end are not level, gets more complicated
+            Vector3 travelDirection = end - start;
+            Vector3 levelDirecteion = end - new Vector3(start.x, end.y, start.z);
+            Vector3 right = Vector3.Cross(travelDirection, levelDirecteion);
+            Vector3 up = Vector3.Cross(right, travelDirection);
+            if (end.y > start.y) up = -up;
+            Vector3 result = start + t * travelDirection;
+            result += (Mathf.Sin(t * Mathf.PI) * height) * up.normalized;
+            return result;
+        }
+    }
+
+    public static Vector2 SampleParabolaDerivative2D(Vector3 start, Vector3 end, float height, float t, float delta)
+    {
+        if (t - delta < 0)
+            return Vector2.zero;
+        Vector3 v2 = SampleParabola(start, end, height, t);
+        Vector3 v1 = SampleParabola(start, end, height, t - delta);
+        return v2 - v1;
+    }
+
+    private IEnumerator AddExplosionLanding()
+    {
+        foreach (GameObject patron in CrowdSpawner.Patrons)
         {
             if(_activeStageDiver2.gameObject != patron)
             {
-                if (Vector3.Distance(_activeStageDiver2.transform.localPosition, patron.transform.localPosition) <= 5)
+                if (Vector3.Distance(_activeStageDiver2.transform.localPosition, patron.transform.localPosition) <= 10)
                 {
-                    patron.GetComponent<Rigidbody2D>().AddExplosionForce(20, _activeStageDiver2.transform.localPosition, 5);
+                    patron.GetComponent<Rigidbody2D>().AddExplosionForce(20, _activeStageDiver2.transform.localPosition, 20);
                 }
             }
         }
+        yield return new WaitForEndOfFrame();
+        _activeStageDiver2.transform.localScale = new Vector3(4, 4, 1.0f);
+        _activeStageDiver2.GetComponent<PatronAnimatorController>().Idle();
+        _activeStageDiver2.simulated = true;
+        _activeStageDiver2.mass = 1.0f;
+        _activeStageDiver2 = null;
     }
 
     private Rigidbody2D _activeStageDiver2;
@@ -184,4 +263,6 @@ public class StageDiveControls : MonoBehaviour
             _activeStageDiver2.GetComponent<PatronAnimatorController>().Idle();
         }
     }
+
+
 }
