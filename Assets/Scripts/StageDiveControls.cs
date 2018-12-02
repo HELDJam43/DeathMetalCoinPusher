@@ -37,6 +37,7 @@ public class StageDiveControls : MonoBehaviour
     private void Start () 
     {
         _diveTimer = 0f;
+        _divingSwingers = new List<Rigidbody2D>();
 	}
 	
 	private void Update () 
@@ -148,7 +149,8 @@ public class StageDiveControls : MonoBehaviour
         _activeStageDiver.simulated = true;
         _activeStageDiver.AddForce(new Vector2(0f, -StageDiveForce), ForceMode2D.Impulse);
         _activeStageDiver.GetComponent<PatronAnimatorController>().StageDive();
-        StartCoroutine(SetMass());
+        StartCoroutine(SetMass(_activeStageDiver));
+        _activeStageDiver = null;
         ResetDiveTimer();
     }
 
@@ -160,42 +162,58 @@ public class StageDiveControls : MonoBehaviour
 
     private void StartSwingerStageDive()
     {
-        _activeStageDiver2 = _activeStageDiver;
+        Rigidbody2D diver = _activeStageDiver;
         _activeStageDiver = null;
 
         deltaTime = 0.0f;
 
-        _swingerLaunchFromPosition = _activeStageDiver2.transform.localPosition;
+        _swingerLaunchFromPosition = diver.transform.localPosition;
 
         float r = Random.Range(10.0f, 20.0f);
-        _swingerLaunchToPosition = _activeStageDiver2.transform.localPosition + (Vector3.forward * r);
-        _swingerLaunchToPosition2 = _activeStageDiver2.transform.localPosition + (Vector3.down * r);
+        _swingerLaunchToPosition = diver.transform.localPosition + (Vector3.forward * r);
+        _swingerLaunchToPosition2 = diver.transform.localPosition + (Vector3.down * r);
 
-        magnitude = (new Vector3(_swingerLaunchToPosition2.x, _swingerLaunchToPosition2.y, 0f) - _activeStageDiver2.transform.localPosition).magnitude;
+        magnitude = (new Vector3(_swingerLaunchToPosition2.x, _swingerLaunchToPosition2.y, 0f) - diver.transform.localPosition).magnitude;
+
+        _divingSwingers.Add(diver);
     }
   
     private float deltaTime = 0.0f;
     private float magnitude = 0.0f;
     private void FixedUpdate()
     {
-        if(_activeStageDiver2 != null && _activeStageDiver2.GetComponent<Patron>().patronType == Patron.PatronType.Swinger)
+        List<Rigidbody2D> diversToRemove = new List<Rigidbody2D>();
+        for(int i = 0; i < _divingSwingers.Count; i++)
         {
-            if (Vector3.Distance(_activeStageDiver2.transform.localPosition, _swingerLaunchToPosition2) > 0.1f)
-            {
-                _activeStageDiver2.transform.localPosition = Vector3.MoveTowards(_activeStageDiver2.transform.localPosition, _swingerLaunchToPosition2, magnitude * Time.deltaTime);
+            Rigidbody2D diver = _divingSwingers[i];
 
-                deltaTime += Time.deltaTime;
-                Vector3 p = SampleParabolaDerivative2D(_swingerLaunchFromPosition, _swingerLaunchToPosition, 2, 2, deltaTime);
-
-                float scale = 4 + (3 * Mathf.Clamp(p.y, -0.5f, 1f));
-                _activeStageDiver2.transform.localScale = new Vector3(scale, scale, 1.0f);
-            }
-            else
+            if (diver != null && diver.GetComponent<Patron>().patronType == Patron.PatronType.Swinger)
             {
-   
-                StartCoroutine(AddExplosionLanding());
+                if (Vector3.Distance(diver.transform.localPosition, _swingerLaunchToPosition2) > 0.1f)
+                {
+                    diver.transform.localPosition = Vector3.MoveTowards(diver.transform.localPosition, _swingerLaunchToPosition2, magnitude * Time.deltaTime);
+
+                    deltaTime += Time.deltaTime;
+                    Vector3 p = SampleParabolaDerivative2D(_swingerLaunchFromPosition, _swingerLaunchToPosition, 2, 2, deltaTime);
+
+                    float scale = 4 + (3 * Mathf.Clamp(p.y, -0.5f, 1f));
+                    diver.transform.localScale = new Vector3(scale, scale, 1.0f);
+                }
+                else
+                {
+
+                    StartCoroutine(AddExplosionLanding(diver));
+                    diversToRemove.Add(diver);
+                }
             }
         }
+
+        // Remove any divers who have started the explosion coroutine
+        foreach (Rigidbody2D toRemove in diversToRemove)
+        {
+            _divingSwingers.Remove(toRemove);
+        }
+        diversToRemove = null;
     }
 
     public static Vector3 SampleParabola(Vector3 start, Vector3 end, float height, float t)
@@ -231,40 +249,43 @@ public class StageDiveControls : MonoBehaviour
         return v2 - v1;
     }
 
-    private IEnumerator AddExplosionLanding()
+    private IEnumerator AddExplosionLanding(Rigidbody2D stageDiver)
     {
+        Rigidbody2D diver = stageDiver;
         foreach (GameObject patron in CrowdSpawner.Patrons)
         {
-            if(_activeStageDiver2.gameObject != patron)
+            if(diver.gameObject != patron)
             {
-                if (Vector3.Distance(_activeStageDiver2.transform.localPosition, patron.transform.localPosition) <= 10)
+                if (Vector3.Distance(diver.transform.localPosition, patron.transform.localPosition) <= 10)
                 {
-                    patron.GetComponent<Rigidbody2D>().AddExplosionForce(20, _activeStageDiver2.transform.localPosition, 20);
+                    patron.GetComponent<Rigidbody2D>().AddExplosionForce(20, diver.transform.localPosition, 20);
                 }
             }
         }
         yield return new WaitForEndOfFrame();
-        _activeStageDiver2.transform.localScale = new Vector3(4, 4, 1.0f);
-        _activeStageDiver2.GetComponent<PatronAnimatorController>().Idle();
-        _activeStageDiver2.simulated = true;
-        _activeStageDiver2.mass = 1.0f;
-        _activeStageDiver2.GetComponent<PatronDrawOrder>().SetCrowdLayer();
-        _activeStageDiver2 = null;
+        diver.transform.localScale = new Vector3(4, 4, 1.0f);
+        diver.GetComponent<PatronAnimatorController>().Idle();
+        diver.simulated = true;
+        diver.mass = 1.0f;
+        diver.GetComponent<PatronDrawOrder>().SetCrowdLayer();
+        diver = null;
     }
 
-    private Rigidbody2D _activeStageDiver2;
-    private IEnumerator SetMass()
-    {
-        _activeStageDiver2 = _activeStageDiver;
-        _activeStageDiver = null;
+    private List<Rigidbody2D> _divingSwingers;
 
-        yield return new WaitForSeconds(2.0f);
-        if(_activeStageDiver2 != null)
+    private const float BANGER_DIVE_TIME = 1.0f;
+    private IEnumerator SetMass(Rigidbody2D stageDiver)
+    {
+        Rigidbody2D diver = stageDiver;
+
+        yield return new WaitForSeconds(BANGER_DIVE_TIME);
+
+        if(diver != null)
         {
-            _activeStageDiver2.mass = 0.5f;
-            _activeStageDiver2.GetComponent<PatronAnimatorController>().Idle();
-            _activeStageDiver2.GetComponent<PatronDrawOrder>().SetCrowdLayer();
-            _activeStageDiver2 = null;
+            diver.mass = 0.5f;
+            diver.GetComponent<PatronAnimatorController>().Idle();
+            diver.GetComponent<PatronDrawOrder>().SetCrowdLayer();
+            diver = null;
         }
     }
 
