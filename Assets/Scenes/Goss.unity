@@ -131,7 +131,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4002440586728948, guid: d98024954036f404b9aa6d82028eaada, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 12.17
       objectReference: {fileID: 0}
     - target: {fileID: 4002440586728948, guid: d98024954036f404b9aa6d82028eaada, type: 2}
       propertyPath: m_LocalPosition.z
@@ -160,17 +160,17 @@ Prefab:
     - target: {fileID: 114924754200868020, guid: d98024954036f404b9aa6d82028eaada,
         type: 2}
       propertyPath: _spawner
-      value: 
+      value:
       objectReference: {fileID: 1924221111}
     - target: {fileID: 114924754200868020, guid: d98024954036f404b9aa6d82028eaada,
         type: 2}
       propertyPath: LeftStageBoundary
-      value: 
+      value:
       objectReference: {fileID: 177549141}
     - target: {fileID: 114924754200868020, guid: d98024954036f404b9aa6d82028eaada,
         type: 2}
       propertyPath: RightStageBoundary
-      value: 
+      value:
       objectReference: {fileID: 2044478792}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d98024954036f404b9aa6d82028eaada, type: 2}
@@ -205,8 +205,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6d762e6ec3a82ea47986064c0a4cdad4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   Patrons:
   - {fileID: 1984158485498978, guid: 8764752d2eadb40eeadb6d7edebff623, type: 2}
   - {fileID: 1673807261657618, guid: 07ab8dcab7a1e498f965018d45117851, type: 2}
@@ -631,8 +631,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 621db4402ee2ef64c8bbdba98dcf7b81, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   _spawner: {fileID: 1924221111}
 --- !u!4 &889518234
 Transform:
@@ -761,8 +761,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9d93febd3b87a4ffeac639c27be959ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
 --- !u!4 &1313790220
 Transform:
   m_ObjectHideFlags: 0
@@ -971,8 +971,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 1077351063, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   m_HorizontalAxis: Horizontal
   m_VerticalAxis: Vertical
   m_SubmitButton: Submit
@@ -989,8 +989,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -619905303, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   m_FirstSelected: {fileID: 0}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
@@ -1148,8 +1148,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6d762e6ec3a82ea47986064c0a4cdad4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   Patrons:
   - {fileID: 1984158485498978, guid: 8764752d2eadb40eeadb6d7edebff623, type: 2}
   - {fileID: 1673807261657618, guid: 07ab8dcab7a1e498f965018d45117851, type: 2}

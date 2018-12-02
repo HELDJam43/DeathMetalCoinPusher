@@ -42,8 +42,10 @@ public class StageDiveControls : MonoBehaviour
     private Rigidbody2D _activeStageDiver;
     private float _stageDiverMovementDirection = -1;
     private List<SwingerLaunchObject> _launchObjects;
+    private SpriteRenderer _arrowSprite;
 
     private const float BANGER_DIVE_TIME = 1.0f;
+    private const float yOffset = 1.75f;
 
     private bool _isActiveStageDiverAvailable
     {
@@ -55,18 +57,27 @@ public class StageDiveControls : MonoBehaviour
 
     private void Start ()
     {
+        _arrowSprite = GetComponent<SpriteRenderer>();
+        _arrowSprite.enabled = false;
+      
         _diveTimer = 0f;
         _launchObjects = new List<SwingerLaunchObject>();
-	}
 
-	private void Update ()
+        float x = Vector3.Lerp(LeftStageBoundary.position, RightStageBoundary.position, 0.5f).x;
+        Vector3 stageDiverPos = new Vector3(x, LeftStageBoundary.position.y - yOffset);
+        transform.localPosition = stageDiverPos;
+    }
+
+    private void Update ()
     {
         if (GameManager.CurrentGameState != GameManager.GameState.Play) return;
 
         UpdateDiveTimer();
+        Move();
 
         if (_isActiveStageDiverAvailable)
         {
+            _arrowSprite.enabled = true;
             MoveStageDiver();
             if (WasDiveButtonPressed())
             {
@@ -76,6 +87,7 @@ public class StageDiveControls : MonoBehaviour
         }
         else
         {
+            _arrowSprite.enabled = false;
             if (_diveTimer <= 0f)
             {
                 SpawnStageDiver();
@@ -111,9 +123,9 @@ public class StageDiveControls : MonoBehaviour
         }
     }
 
-    private void MoveStageDiver()
+    private void Move()
     {
-        Vector3 newPos = _activeStageDiver.transform.position;
+        Vector3 newPos = transform.position;
         newPos.x = newPos.x + ((ModifiedStageMovementSpeed * Time.deltaTime) * _stageDiverMovementDirection);
 
         if (_stageDiverMovementDirection < 0 && newPos.x <= LeftStageBoundary.position.x)
@@ -127,14 +139,21 @@ public class StageDiveControls : MonoBehaviour
             _stageDiverMovementDirection *= -1f;
         }
 
-        _activeStageDiver.transform.position = newPos;
+        transform.localPosition = newPos;
+    }
+
+    private void MoveStageDiver()
+    {
+        _activeStageDiver.transform.localPosition = transform.localPosition + new Vector3(0.8f, yOffset, 0);
     }
 
     private void SpawnStageDiver()
     {
         // Find a random spot in between the two boundaries
-        float randX = Random.Range(LeftStageBoundary.position.x + 1f, RightStageBoundary.position.x - 1f);
-        Vector3 stageDiverPos = new Vector3(randX, LeftStageBoundary.position.y);
+        //float randX = Random.Range(LeftStageBoundary.position.x + 1f, RightStageBoundary.position.x - 1f);
+        //Vector3 stageDiverPos = new Vector3(randX, LeftStageBoundary.position.y);
+
+        Vector3 stageDiverPos = transform.localPosition;
 
         GameObject temp = _spawner.GetSpawnedPatron();
         CrowdSpawner.AddPatron(temp);
