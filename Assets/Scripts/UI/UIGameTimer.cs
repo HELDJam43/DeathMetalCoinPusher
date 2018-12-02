@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class UIGameTimer : MonoBehaviour
 {
-    public int TimeLeft = 3; 
+    private float TimeLeft = 66.6f; 
     public TMP_Text countdown;
     public TMP_Text title;
     public GameObject restartButton;
@@ -27,15 +27,15 @@ public class UIGameTimer : MonoBehaviour
 
     private void Update()
     {
-        countdown.text = "Time: " + TimeLeft; 
+        countdown.text = "Time: " + TimeLeft.ToString("F1"); 
     }
 
     private IEnumerator LoseTime()
     {
         while (TimeLeft > 0)
         {
-            yield return new WaitForSeconds(1.0f);
-            TimeLeft--;
+            yield return new WaitForEndOfFrame();
+            TimeLeft -= Time.deltaTime;
         }
 
         if(TimeLeft == 0)
