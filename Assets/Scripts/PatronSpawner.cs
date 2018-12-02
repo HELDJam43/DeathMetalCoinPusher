@@ -8,7 +8,19 @@ public class PatronSpawner : MonoBehaviour
         Right
     }
 
-    public GameObject Patron;
+    public GameObject GetSpawnedPatron()
+    {
+        GameObject patron = Instantiate(GetRandomPatronPrefab(), transform.position, Quaternion.identity) as GameObject;
+        return patron;
+    }
+
+    [SerializeField]
+    private GameObject[] Patrons;
+
+    private GameObject GetRandomPatronPrefab()
+    {
+        return Patrons[Random.Range(0, Patrons.Length)];
+    }
 
     public Door door = Door.Left;
     public float force = 10;
@@ -22,7 +34,7 @@ public class PatronSpawner : MonoBehaviour
     {
         if (CrowdSpawner.PatronCount() < CrowdSpawner.MaxCrowdSize)
         {
-            GameObject patron = Instantiate(Patron, transform.position, Quaternion.identity) as GameObject;
+            GameObject patron = GetSpawnedPatron();
             Rigidbody2D rigidbody2D = patron.GetComponent<Rigidbody2D>();
             rigidbody2D.AddForce(door == Door.Right ? Vector3.left * force : Vector3.right * force, ForceMode2D.Impulse);
         }

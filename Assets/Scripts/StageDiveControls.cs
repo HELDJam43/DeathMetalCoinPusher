@@ -14,7 +14,7 @@ public class StageDiveControls : MonoBehaviour
     private float StageDiveForce;
 
     [SerializeField]
-    private GameObject StageDiverPrefab;
+    private PatronSpawner _spawner;
 
     [SerializeField]
     private Transform LeftStageBoundary;
@@ -115,7 +115,8 @@ public class StageDiveControls : MonoBehaviour
         // Find a random spot in between the two boundaries
         float randX = Random.Range(LeftStageBoundary.position.x + 1f, RightStageBoundary.position.x - 1f);
         Vector3 stageDiverPos = new Vector3(randX, LeftStageBoundary.position.y);
-        GameObject temp = Instantiate(StageDiverPrefab);
+
+        GameObject temp = _spawner.GetSpawnedPatron();
         CrowdSpawner.AddPatron(temp);
 
         _activeStageDiver = temp.GetComponent<Rigidbody2D>();
