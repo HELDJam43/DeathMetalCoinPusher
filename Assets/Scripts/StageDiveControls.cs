@@ -137,11 +137,10 @@ public class StageDiveControls : MonoBehaviour
                 StartBangerStageDive();
                 break;
             case Patron.PatronType.Swinger:
+                StartSwingStageDive();
                 break;
         }
 
-        StartCoroutine(SetMass());
-        ResetDiveTimer();
     }
 
     private void StartBangerStageDive()
@@ -149,6 +148,8 @@ public class StageDiveControls : MonoBehaviour
         _activeStageDiver.simulated = true;
         _activeStageDiver.AddForce(new Vector2(0f, -StageDiveForce), ForceMode2D.Impulse);
         _activeStageDiver.GetComponent<PatronAnimatorController>().StageDive();
+        StartCoroutine(SetMass());
+        ResetDiveTimer();
     }
 
     private void StartSwingStageDive()
@@ -157,24 +158,37 @@ public class StageDiveControls : MonoBehaviour
         StartCoroutine(JumpHeight(position));
     }
 
-    private IEnumerator JumpHeight(Vector2 dropPos)
+    private IEnumerator JumpHeight(Vector3 dropPos)
     {
-        Rigidbody2D rigidbody2D = _activeStageDiver.GetComponent<Rigidbody2D>();
+        _activeStageDiver2 = _activeStageDiver;
+        _activeStageDiver = null;
+
+        Rigidbody2D rigidbody2D = _activeStageDiver2.GetComponent<Rigidbody2D>();
         rigidbody2D.simulated = false;
 
-        Debug.Log(Vector3.Distance(_activeStageDiver.transform.localPosition, dropPos));
+        float length = Vector3.Distance(_activeStageDiver2.transform.localPosition, dropPos) * 0.5f;
 
-        while(Vector3.Distance(_activeStageDiver.transform.localPosition, dropPos) > 1)
+        while (Vector3.Distance(_activeStageDiver2.transform.localPosition, dropPos) > 1)
         {
-            float scale = 4 + Mathf.PingPong(Time.time * 5, 4);
+            float magnitude = (dropPos - _activeStageDiver2.transform.position).magnitude;
+            magnitude = Mathf.Clamp(magnitude, 4, 6);
 
-            _activeStageDiver.transform.localScale = new Vector3(scale, scale);
+            _activeStageDiver2.transform.localScale = new Vector3(magnitude, magnitude, 1.0f);
 
-            float distToDropPos = (new Vector3(dropPos.x, dropPos.y, 0f) - transform.position).magnitude;
+            float distToDropPos = (dropPos - transform.position).magnitude;
+            float moveDelta = distToDropPos * 4;
+            Vector3 position = Vector3.MoveTowards(_activeStageDiver2.transform.position, dropPos, moveDelta * Time.deltaTime);
+            position.z = 0.0f;
 
-            transform.position = Vector3.MoveTowards(transform.position, dropPos, distToDropPos * Time.deltaTime);
+            _activeStageDiver2.transform.position = position;
             yield return null;
         }
+
+        _activeStageDiver2.transform.localScale = new Vector3(4, 4, 1);
+        _activeStageDiver2.simulated = true;
+        _activeStageDiver2.mass = 0.5f;
+      
+        ResetDiveTimer();
     }
 
     private Rigidbody2D _activeStageDiver2;
