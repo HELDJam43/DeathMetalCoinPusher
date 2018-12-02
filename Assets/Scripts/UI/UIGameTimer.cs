@@ -46,7 +46,7 @@ public class UIGameTimer : MonoBehaviour
 
     private IEnumerator StartGame()
     {
-        yield return new WaitForSeconds(3.0f);
+        yield return new WaitForSeconds(2.0f);
         title.text = "3";
         yield return new WaitForSeconds(1.0f);
         title.text = "2";
