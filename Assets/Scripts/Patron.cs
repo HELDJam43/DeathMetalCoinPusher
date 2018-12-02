@@ -12,6 +12,9 @@ public class Patron : MonoBehaviour
 
     private Rigidbody2D _rigidBody;
 
+    [Range(1, 1000)]
+    public int PointValue;
+
     public PatronDrawOrder _drawOrder;
     public PatronAnimatorController AnimController;
 
@@ -44,6 +47,7 @@ public class Patron : MonoBehaviour
             yield return null;
         }
 
+        GameManager.Instance.AddPoints(this.PointValue);
         Destroy(this.gameObject);
     }
 

@@ -288,6 +288,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PitDeathTime: 0.56
+  PointValue: 50
   _drawOrder: {fileID: 114509388338924158}
   AnimController: {fileID: 114476457490347850}
 --- !u!114 &114476457490347850

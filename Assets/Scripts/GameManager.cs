@@ -22,12 +22,16 @@ public class GameManager : MonoBehaviour
 
     public void AddPoints(int points)
     {
-        _currentPoints += points;
+        CurrentScore += points;
         OnPointsAdded.Invoke(points);
     }
 
     private static GameManager _instance;
-    private int _currentPoints;
+    public int CurrentScore
+    {
+        get;
+        private set;
+    }
 
     private void Awake()
     {
@@ -45,7 +49,7 @@ public class GameManager : MonoBehaviour
             OnPointsAdded = new PointsAddedEvent();
         }
 
-        _currentPoints = 0;
+        CurrentScore = 0;
     }
 
     // Use this for initialization
