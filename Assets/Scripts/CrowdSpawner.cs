@@ -3,7 +3,9 @@ using UnityEngine;
 
 public class CrowdSpawner : MonoBehaviour
 {
-    public GameObject Patron;
+    [SerializeField]
+    public PatronSpawner _spawner;
+
     public static int MaxCrowdSize = 20;
 
     private static List<GameObject> Patrons = new List<GameObject>();
@@ -37,7 +39,9 @@ public class CrowdSpawner : MonoBehaviour
 
     private GameObject SpawnPatron(Vector3 position)
     {
-        return Instantiate(Patron, position, Quaternion.identity);
+        GameObject patron = _spawner.GetSpawnedPatron();
+        patron.transform.position = position;
+        return patron;
     }
 
     public static void AddPatron(GameObject patron)
@@ -68,7 +72,8 @@ public class CrowdSpawner : MonoBehaviour
             Vector3 position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             position.z = 0.0f;
 
-            GameObject patron = Instantiate(Patron, position, Quaternion.identity);
+            GameObject patron = _spawner.GetSpawnedPatron();
+            patron.transform.position = position;
             patron.GetComponent<PatronAnimatorController>().Idle();
             Patrons.Add(patron);
 

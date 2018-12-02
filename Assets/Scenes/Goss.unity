@@ -250,6 +250,11 @@ Prefab:
       propertyPath: StageMovementSpeed
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 114924754200868020, guid: d98024954036f404b9aa6d82028eaada,
+        type: 2}
+      propertyPath: _spawner
+      value: 
+      objectReference: {fileID: 1924221111}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d98024954036f404b9aa6d82028eaada, type: 2}
   m_IsPrefabAsset: 0
@@ -290,7 +295,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d762e6ec3a82ea47986064c0a4cdad4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Patron: {fileID: 1532948121322154, guid: 67861b58928d840658bf228f77461da0, type: 2}
+  Patrons:
+  - {fileID: 1984158485498978, guid: 8764752d2eadb40eeadb6d7edebff623, type: 2}
+  - {fileID: 1673807261657618, guid: 07ab8dcab7a1e498f965018d45117851, type: 2}
   door: 1
   force: 5
 --- !u!4 &245238631
@@ -761,7 +768,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 621db4402ee2ef64c8bbdba98dcf7b81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Patron: {fileID: 1532948121322154, guid: 67861b58928d840658bf228f77461da0, type: 2}
+  _spawner: {fileID: 1924221111}
 --- !u!4 &889518234
 Transform:
   m_ObjectHideFlags: 0
@@ -1402,7 +1409,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d762e6ec3a82ea47986064c0a4cdad4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Patron: {fileID: 1532948121322154, guid: 67861b58928d840658bf228f77461da0, type: 2}
+  Patrons:
+  - {fileID: 1984158485498978, guid: 8764752d2eadb40eeadb6d7edebff623, type: 2}
+  - {fileID: 1673807261657618, guid: 07ab8dcab7a1e498f965018d45117851, type: 2}
   door: 0
   force: 5
 --- !u!4 &1924221112
