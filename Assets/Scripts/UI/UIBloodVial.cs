@@ -8,11 +8,11 @@ public class UIBloodVial : MonoBehaviour
     private void Start()
     {
         Blood.fillAmount = 0.0f;
-        GameManager.Instance.OnSacrificeAdded.AddListener(FillBloodVial);
+        GameManager.Instance.OnBonusPointsAdded.AddListener(FillBloodVial);
     }
 
-    private void FillBloodVial(int points, int CurrentSacrifices)
+    private void FillBloodVial(int points, int bonus)
     {
-        Blood.fillAmount = CurrentSacrifices / 66.6f;
+        Blood.fillAmount = bonus / 666.0f;
     }
 }

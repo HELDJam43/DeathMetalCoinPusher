@@ -85,7 +85,7 @@ public class GameManager : MonoBehaviour
 
     public void AddPoints(int points)
     {
-        CurrentSacrifices += 10;
+        CurrentSacrifices += 1;
         CurrentScore += points;
 
         if (!_isBonusMode)
