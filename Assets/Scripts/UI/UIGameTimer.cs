@@ -66,6 +66,7 @@ public class UIGameTimer : MonoBehaviour
         GameManager.CurrentGameState = GameManager.GameState.Ending;
         title.text = "GAME OVER";
         restartButton.SetActive(true);
+        GameManager.Instance.InvokeGameOver();
     }
 
     public void OnRestartSelected()

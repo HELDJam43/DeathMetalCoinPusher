@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 using TMPro;
 
 public class UIScore : MonoBehaviour 
@@ -24,8 +21,7 @@ public class UIScore : MonoBehaviour
         _text.text = (_prefix + _currentValue);
     }
 
-    // Use this for initialization
-    void Start () 
+    private void Start () 
     {
         if (_isSacrificeUI)
         {

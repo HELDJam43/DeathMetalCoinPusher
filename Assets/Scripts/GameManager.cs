@@ -1,9 +1,15 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 using System.Collections;
+using System;
 
 // First parameter is the number of points added, second is total points
 public class PointsAddedEvent : UnityEvent<int, int>
+{
+
+}
+
+public class GameOverEvent : UnityEvent<int>
 {
 
 }
@@ -24,6 +30,7 @@ public class GameManager : MonoBehaviour
     public PointsAddedEvent OnSacrificeAdded;
     public PointsAddedEvent OnPointsAdded;
     public PointsAddedEvent OnBonusPointsAdded;
+    public GameOverEvent OnGameOverEvent;
 
     public int CurrentSacrifices
     {
@@ -68,6 +75,7 @@ public class GameManager : MonoBehaviour
             OnSacrificeAdded = new PointsAddedEvent();
             OnPointsAdded = new PointsAddedEvent();
             OnBonusPointsAdded = new PointsAddedEvent();
+            OnGameOverEvent = new GameOverEvent();
         }
 
         // Init Scores
@@ -131,5 +139,10 @@ public class GameManager : MonoBehaviour
         IsBonusMode = false;
         CurrentBonusModeScore = 0;
         musicManager.PlayMain();
+    }
+
+    public void InvokeGameOver()
+    {
+        OnGameOverEvent.Invoke(CurrentScore);
     }
 }
