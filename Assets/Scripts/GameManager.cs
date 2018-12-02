@@ -124,7 +124,7 @@ public class GameManager : MonoBehaviour
 
         // Do bonus mode for as long as it takes to finish two rounds of the fast song
         float lengthOfSong = 9.14f;
-        int numberOfRounds = 2;
+        int numberOfRounds = 1;
         yield return new WaitForSeconds(lengthOfSong * (float)numberOfRounds);
 
         // Finish bonus mode
