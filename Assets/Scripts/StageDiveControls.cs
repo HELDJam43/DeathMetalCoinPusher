@@ -7,6 +7,14 @@ public class StageDiveControls : MonoBehaviour
     [SerializeField]
     private float TimeBetweenStageDivers;
 
+    private float ModifiedTimeBetweenStageDivers
+    {
+        get
+        {
+            return TimeBetweenStageDivers / MusicManager.BeatsPerSecond;
+        }
+    }
+
     [SerializeField]
     private float StageMovementSpeed;
 
@@ -89,7 +97,7 @@ public class StageDiveControls : MonoBehaviour
 
     private void ResetDiveTimer()
     {
-        _diveTimer = TimeBetweenStageDivers;
+        _diveTimer = ModifiedTimeBetweenStageDivers;
     }
 
     private void UpdateDiveTimer()

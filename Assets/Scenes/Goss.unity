@@ -159,6 +159,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 114924754200868020, guid: d98024954036f404b9aa6d82028eaada,
         type: 2}
+      propertyPath: _spawner
+      value: 
+      objectReference: {fileID: 1924221111}
+    - target: {fileID: 114924754200868020, guid: d98024954036f404b9aa6d82028eaada,
+        type: 2}
       propertyPath: LeftStageBoundary
       value: 
       objectReference: {fileID: 177549141}
@@ -167,27 +172,6 @@ Prefab:
       propertyPath: RightStageBoundary
       value: 
       objectReference: {fileID: 2044478792}
-    - target: {fileID: 114924754200868020, guid: d98024954036f404b9aa6d82028eaada,
-        type: 2}
-      propertyPath: StageDiveForce
-      value: 250
-      objectReference: {fileID: 0}
-    - target: {fileID: 114924754200868020, guid: d98024954036f404b9aa6d82028eaada,
-        type: 2}
-      propertyPath: StageDiverPrefab
-      value: 
-      objectReference: {fileID: 1532948121322154, guid: 67861b58928d840658bf228f77461da0,
-        type: 2}
-    - target: {fileID: 114924754200868020, guid: d98024954036f404b9aa6d82028eaada,
-        type: 2}
-      propertyPath: StageMovementSpeed
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 114924754200868020, guid: d98024954036f404b9aa6d82028eaada,
-        type: 2}
-      propertyPath: _spawner
-      value: 
-      objectReference: {fileID: 1924221111}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d98024954036f404b9aa6d82028eaada, type: 2}
   m_IsPrefabAsset: 0
