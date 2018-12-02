@@ -12,6 +12,9 @@ public class Patron : MonoBehaviour
 
     private Rigidbody2D _rigidBody;
 
+    [Range(1, 1000)]
+    public int PointValue;
+
     public PatronDrawOrder _drawOrder;
     public PatronAnimatorController AnimController;
 
@@ -37,12 +40,14 @@ public class Patron : MonoBehaviour
         while (this.transform.localScale.x >= 0)
         {
             float scaleComp = transform.localScale.x - (_pitDeathDeltaScale * Time.deltaTime);
-            Vector3 newScale = new Vector3(scaleComp, scaleComp);
+            Vector3 newScale = new Vector3(scaleComp, scaleComp, 1.0f);
+
             transform.localScale = newScale;
             transform.position = Vector3.MoveTowards(transform.position, dropPos, moveDelta * Time.deltaTime);
             yield return null;
         }
 
+        GameManager.Instance.AddPoints(this.PointValue);
         Destroy(this.gameObject);
     }
 
