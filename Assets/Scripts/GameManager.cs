@@ -43,7 +43,11 @@ public class GameManager : MonoBehaviour
         private set;
     }
 
-    private bool _isBonusMode = false;  
+    public bool IsBonusMode
+    {
+        get;
+        private set;
+    }
     private const int BONUS_MODE_TARGET = 666;
 
     private void Awake()
@@ -70,6 +74,7 @@ public class GameManager : MonoBehaviour
         CurrentSacrifices = 0;
         CurrentScore = 0;
         CurrentBonusModeScore = 0;
+        IsBonusMode = false;
     }
 
     private void Start()
@@ -88,7 +93,7 @@ public class GameManager : MonoBehaviour
         CurrentSacrifices += 1;
         CurrentScore += points;
 
-        if (!_isBonusMode)
+        if (!IsBonusMode)
         {
             CurrentBonusModeScore += points;
             CheckForBonusMode();
@@ -113,7 +118,7 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator DoBonusMode()
     {
-        _isBonusMode = true;
+        IsBonusMode = true;
         MusicManager musicManager = GameObject.Find("MusicManager").GetComponent<MusicManager>();
         musicManager.PlayFast();
 
@@ -123,7 +128,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(lengthOfSong * (float)numberOfRounds);
 
         // Finish bonus mode
-        _isBonusMode = false;
+        IsBonusMode = false;
         CurrentBonusModeScore = 0;
         musicManager.PlayMain();
     }
