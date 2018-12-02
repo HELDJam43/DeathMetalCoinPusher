@@ -51,8 +51,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b12a1403b654d431d94639c01d641dfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TimeBetweenStageDivers: 1
-  StageMovementSpeed: 5
+  TimeBetweenStageDivers: 1.5
+  StageMovementSpeed: 10
   StageDiveForce: 250
   _spawner: {fileID: 0}
   LeftStageBoundary: {fileID: 0}
