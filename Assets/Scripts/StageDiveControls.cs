@@ -10,6 +10,14 @@ public class StageDiveControls : MonoBehaviour
     [SerializeField]
     private float StageMovementSpeed;
 
+    private float ModifiedStageMovementSpeed
+    {
+        get
+        {
+            return StageMovementSpeed * MusicManager.BeatsPerSecond;
+        }
+    }
+
     [SerializeField]
     private float StageDiveForce;
 
@@ -95,7 +103,7 @@ public class StageDiveControls : MonoBehaviour
     private void MoveStageDiver()
     {
         Vector3 newPos = _activeStageDiver.transform.position;
-        newPos.x = newPos.x + ((StageMovementSpeed * Time.deltaTime) * _stageDiverMovementDirection);
+        newPos.x = newPos.x + ((ModifiedStageMovementSpeed * Time.deltaTime) * _stageDiverMovementDirection);
 
         if (_stageDiverMovementDirection < 0 && newPos.x <= LeftStageBoundary.position.x)
         {
