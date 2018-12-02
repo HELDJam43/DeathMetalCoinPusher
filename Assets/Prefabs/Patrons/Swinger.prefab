@@ -287,6 +287,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e659deb3ca881b49a90902d925e648b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  patronType: 1
   PitDeathTime: 0.56
   PointValue: 50
   _drawOrder: {fileID: 114457236778151232}

@@ -124,21 +124,57 @@ public class StageDiveControls : MonoBehaviour
         _activeStageDiver.mass = 5.0f;
         _activeStageDiver.transform.position = stageDiverPos;
         _activeStageDiver.GetComponent<PatronAnimatorController>().OnStage();
-
-        // TODO - Enable the Arrow image
     }
 
     private void StartStageDive()
     {
-        // TODO - Disable the Arrow image
-
         // Send the stage dive
-        _activeStageDiver.simulated = true;
-        _activeStageDiver.AddForce(new Vector2(0f, -StageDiveForce), ForceMode2D.Impulse);
-        _activeStageDiver.GetComponent<PatronAnimatorController>().StageDive();
+        Patron patron = _activeStageDiver.GetComponent<Patron>();
+
+        switch (patron.patronType)
+        {
+            case Patron.PatronType.Banger:
+                StartBangerStageDive();
+                break;
+            case Patron.PatronType.Swinger:
+                break;
+        }
 
         StartCoroutine(SetMass());
         ResetDiveTimer();
+    }
+
+    private void StartBangerStageDive()
+    {
+        _activeStageDiver.simulated = true;
+        _activeStageDiver.AddForce(new Vector2(0f, -StageDiveForce), ForceMode2D.Impulse);
+        _activeStageDiver.GetComponent<PatronAnimatorController>().StageDive();
+    }
+
+    private void StartSwingStageDive()
+    {
+        Vector3 position = transform.localPosition + (Vector3.down * 5);
+        StartCoroutine(JumpHeight(position));
+    }
+
+    private IEnumerator JumpHeight(Vector2 dropPos)
+    {
+        Rigidbody2D rigidbody2D = _activeStageDiver.GetComponent<Rigidbody2D>();
+        rigidbody2D.simulated = false;
+
+        Debug.Log(Vector3.Distance(_activeStageDiver.transform.localPosition, dropPos));
+
+        while(Vector3.Distance(_activeStageDiver.transform.localPosition, dropPos) > 1)
+        {
+            float scale = 4 + Mathf.PingPong(Time.time * 5, 4);
+
+            _activeStageDiver.transform.localScale = new Vector3(scale, scale);
+
+            float distToDropPos = (new Vector3(dropPos.x, dropPos.y, 0f) - transform.position).magnitude;
+
+            transform.position = Vector3.MoveTowards(transform.position, dropPos, distToDropPos * Time.deltaTime);
+            yield return null;
+        }
     }
 
     private Rigidbody2D _activeStageDiver2;
