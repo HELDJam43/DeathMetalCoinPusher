@@ -9,10 +9,12 @@ public class MusicManager : MonoBehaviour
     public AudioSource Source;
 
     public AudioClip IntroLoop;
-    private float IntroBPS = 8f / 12.8f;
+    //private float IntroBPS = 8f / 12.8f;
+    private float IntroBPS = 16f / 12.3f;
 
     public AudioClip MainLoop;
-    private float MainBPS = 8f / 5.3f;
+    //private float MainBPS = 8f / 5.3f;
+    private float MainBPS = 8f / 3.556f;
 
     public AudioClip FastLoop;
     private float FastBPS = 32f / 9.14f;

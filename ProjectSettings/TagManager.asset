@@ -41,6 +41,18 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: DropShadow
+    uniqueID: 3675651465
+    locked: 0
+  - name: Band
+    uniqueID: 773154133
+    locked: 0
+  - name: Bouncers
+    uniqueID: 3748739539
+    locked: 0
   - name: Characters
     uniqueID: 4030344591
+    locked: 0
+  - name: StageDiver
+    uniqueID: 2969901335
     locked: 0

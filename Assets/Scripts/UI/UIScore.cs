@@ -11,18 +11,18 @@ public class UIScore : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI _text;
 
-    public void OnScoreUpdated(int addedScore)
+    public void OnScoreUpdated(int addedScore, int totalScore)
     {
         // todo - flash the added points
 
-        _currentScore = GameManager.Instance.CurrentScore;
-        _text.text = ("SCORE: " + _currentScore);
+        _currentScore = totalScore;
+        _text.text = ("SACRIFICES: " + _currentScore);
     }
 
     // Use this for initialization
     void Start () 
     {
         GameManager.Instance.OnPointsAdded.AddListener(OnScoreUpdated);
-        OnScoreUpdated(0);
+        OnScoreUpdated(0, 0);
 	}
 }
