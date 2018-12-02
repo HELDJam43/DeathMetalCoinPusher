@@ -3,7 +3,13 @@
 public class PointLightPulse : MonoBehaviour
 {
     public float Range = 4.0f;
-    public float Speed = 3.0f;
+    public float Speed
+    {
+        get
+        {
+            return MusicManager.BeatsPerSecond * 30f;
+        }
+    }
 
     public float Minimum = 1.0f;
 
