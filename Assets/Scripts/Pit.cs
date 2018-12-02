@@ -4,6 +4,7 @@ public class Pit : MonoBehaviour
 {
     [SerializeField]
     private Transform BottomLeft;
+
     [SerializeField]
     private Transform BottomRight;
 

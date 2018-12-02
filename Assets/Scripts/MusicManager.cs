@@ -32,7 +32,7 @@ public class MusicManager : MonoBehaviour
         }
     }
 
-    private void PlayIntro()
+    public void PlayIntro()
     {
         Source.clip = IntroLoop;
         Source.loop = false;
@@ -41,7 +41,7 @@ public class MusicManager : MonoBehaviour
 
         BeatsPerSecond = IntroBPS;
     }
-    private void PlayMain()
+    public void PlayMain()
     {
         Source.clip = MainLoop;
         Source.time = 0f;
@@ -50,7 +50,7 @@ public class MusicManager : MonoBehaviour
 
         BeatsPerSecond = MainBPS;
     }
-    private void PlayFast()
+    public void PlayFast()
     {
         Source.clip = FastLoop;
         Source.time = 0f;
