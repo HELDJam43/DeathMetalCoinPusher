@@ -65,5 +65,10 @@ public class PatronAnimatorController : MonoBehaviour
     void Update()
     {
         // TODO - Change up the idle occasionally
+        if (_isIdle)
+        {
+            // CBO - warning supression!
+            _isIdle = true;
+        }
     }
 }

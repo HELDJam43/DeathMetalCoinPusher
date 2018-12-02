@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class PatronDrawOrder : MonoBehaviour 
 {
-    [SerializeField]
-    private int CurrentIndex;
 
     [SerializeField]
     private int NumberOfGroups;
@@ -21,7 +19,6 @@ public class PatronDrawOrder : MonoBehaviour
 
     public void SetIndex(int index)
     {
-        CurrentIndex = index;
         int startIndex = index * NumberOfGroups;
 
         _torso.sortingOrder = startIndex++;

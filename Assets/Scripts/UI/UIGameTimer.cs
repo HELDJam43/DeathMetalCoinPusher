@@ -1,12 +1,19 @@
 ﻿using UnityEngine;
 using TMPro;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class UIGameTimer : MonoBehaviour
 {
-    public int TimeLeft = 120; 
+    public int TimeLeft = 3; 
     public TMP_Text countdown;
     public TMP_Text title;
+    public GameObject restartButton;
+
+    private void Awake()
+    {
+        restartButton.SetActive(false);
+    }
 
     private void Start()
     {
@@ -51,6 +58,19 @@ public class UIGameTimer : MonoBehaviour
         title.text = string.Empty;
         StartCoroutine(LoseTime());
         GameManager.CurrentGameState = GameManager.GameState.Play;
+
+        while (TimeLeft > 0)
+        {
+            yield return null;
+        }
+        GameManager.CurrentGameState = GameManager.GameState.Ending;
+        title.text = "GAME OVER";
+        restartButton.SetActive(true);
+    }
+
+    public void OnRestartSelected()
+    {
+        SceneManager.LoadScene(0);
     }
 }
 

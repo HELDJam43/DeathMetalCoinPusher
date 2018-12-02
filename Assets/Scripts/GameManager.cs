@@ -51,6 +51,11 @@ public class GameManager : MonoBehaviour
         FindObjectOfType<UIGameTimer>().StartCountdownTimer();
     }
 
+    private void OnDestroy()
+    {
+        Instance = null;
+    }
+
     public void AddPoints(int points)
     {
         CurrentScore += points;
