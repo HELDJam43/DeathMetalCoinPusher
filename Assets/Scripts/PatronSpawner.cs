@@ -57,7 +57,7 @@ public class PatronSpawner : MonoBehaviour
 
     private void SpawnPatronNormal()
     {
-        if (CrowdSpawner.PatronCount() < CrowdSpawner.MaxCrowdSize)
+        if (!GameManager.Instance.IsBonusMode && CrowdSpawner.PatronCount() < CrowdSpawner.MaxCrowdSize)
         {
             SpawnPatron();
         }

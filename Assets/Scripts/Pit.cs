@@ -14,11 +14,17 @@ public class Pit : MonoBehaviour
     private void Start()
     {
         GameManager.Instance.OnGameStartingEvent.AddListener(OnGameStartingEvent);
+        GameManager.Instance.OnGameOverEvent.AddListener(OnGameOverEvent);
     }
 
     private void OnGameStartingEvent(int arg0)
     {
         PitBlock.SetActive(false);
+    }
+
+    private void OnGameOverEvent(int arg0)
+    {
+        PitBlock.SetActive(true);
     }
 
     private void OnTriggerEnter2D(Collider2D collider)
