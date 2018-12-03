@@ -338,7 +338,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   patronType: 2
   IdleMass: 2
-  LaunchMass: 5
+  LaunchMass: 4.5
   StageDiveForce: 450
   PitDeathTime: 0.56
   PointValue: 50
