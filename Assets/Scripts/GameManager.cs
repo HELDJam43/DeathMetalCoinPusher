@@ -96,6 +96,14 @@ public class GameManager : MonoBehaviour
         FindObjectOfType<UIGameTimer>().StartCountdownTimer();
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+    }
+
     private void OnDestroy()
     {
         // Clear current instance for game reset
