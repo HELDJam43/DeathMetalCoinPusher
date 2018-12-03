@@ -12,6 +12,14 @@ public class Patron : MonoBehaviour
 
     public PatronType patronType = PatronType.Banger;
 
+    [Range(1, 10)]
+    public float IdleMass = 0.5f;
+
+    [Range(1, 10)]
+    public float LaunchMass = 5.0f;
+
+    public float StageDiveForce = 250.0f;
+
     [SerializeField]
     [Range(0.1f, 2)]
     private float PitDeathTime;
@@ -30,7 +38,8 @@ public class Patron : MonoBehaviour
     private void Start()
     {
         _rigidBody = GetComponent<Rigidbody2D>();
-        InvokeRepeating("RandomForce", 1, Random.Range(0.25f, 1.0f));
+        _rigidBody.mass = IdleMass;
+        InvokeRepeating("RandomForce", 3, Random.Range(0.25f, 1.0f));
     }
 
     public void StartPitDeath(Vector2 dropPos)
@@ -48,13 +57,13 @@ public class Patron : MonoBehaviour
         _isDying = true;
         _rigidBody.simulated = false;
         AnimController.FallingInPit();
-        float _pitDeathDeltaScale = transform.localScale.x / PitDeathTime;
+        float pitDeathDeltaScale = transform.localScale.x / PitDeathTime;
         float distToDropPos = (new Vector3(dropPos.x, dropPos.y, 0f) - transform.position).magnitude;
         float moveDelta = distToDropPos / PitDeathTime;
 
         while (transform.localScale.x >= 0)
         {
-            float scaleComp = transform.localScale.x - (_pitDeathDeltaScale * Time.deltaTime);
+            float scaleComp = transform.localScale.x - (pitDeathDeltaScale * Time.deltaTime);
             Vector3 newScale = new Vector3(scaleComp, scaleComp, 1.0f);
 
             transform.localScale = newScale;
@@ -73,8 +82,15 @@ public class Patron : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        //Rigidbody2D rigidbody2D = collision.otherCollider.gameObject.GetComponent<Rigidbody2D>();
 
+        if (patronType == PatronType.BigGuy)
+        {
+            if (collision.gameObject.GetComponent<Patron>() != null)
+            {
+                Rigidbody2D rigidBody2D = collision.gameObject.GetComponent<Rigidbody2D>();
+                rigidBody2D.AddExplosionForce(10, transform.localPosition, 10);
+            }
+        }
     }
 
     private void RandomForce()

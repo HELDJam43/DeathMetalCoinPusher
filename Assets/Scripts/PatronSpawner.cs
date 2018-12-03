@@ -10,7 +10,7 @@ public class PatronSpawner : MonoBehaviour
 
     public GameObject GetSpawnedPatron()
     {
-        GameObject patron = Instantiate(GetRandomPatronPrefab(), transform.position, Quaternion.identity) as GameObject;
+        GameObject patron = Instantiate(GetRandomPatronPrefab(), transform.position, Quaternion.identity);
         return patron;
     }
 

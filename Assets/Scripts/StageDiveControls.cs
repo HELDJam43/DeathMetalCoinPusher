@@ -27,9 +27,6 @@ public class StageDiveControls : MonoBehaviour
     }
 
     [SerializeField]
-    private float StageDiveForce;
-
-    [SerializeField]
     private PatronSpawner _spawner;
 
     [SerializeField]
@@ -95,7 +92,7 @@ public class StageDiveControls : MonoBehaviour
         }
     }
 
-    private bool WasDiveButtonPressed()
+    private static bool WasDiveButtonPressed()
     {
         // TODO - if we want to add additional control schemes, do it here.
         bool wasPressed = false;
@@ -149,10 +146,6 @@ public class StageDiveControls : MonoBehaviour
 
     private void SpawnStageDiver()
     {
-        // Find a random spot in between the two boundaries
-        //float randX = Random.Range(LeftStageBoundary.position.x + 1f, RightStageBoundary.position.x - 1f);
-        //Vector3 stageDiverPos = new Vector3(randX, LeftStageBoundary.position.y);
-
         Vector3 stageDiverPos = transform.localPosition;
 
         GameObject temp = _spawner.GetSpawnedPatron();
@@ -160,7 +153,6 @@ public class StageDiveControls : MonoBehaviour
 
         _activeStageDiver = temp.GetComponent<Rigidbody2D>();
         _activeStageDiver.simulated = false;
-        _activeStageDiver.mass = 5.0f;
         _activeStageDiver.transform.position = stageDiverPos;
         _activeStageDiver.GetComponent<PatronAnimatorController>().OnStage();
         _activeStageDiver.GetComponent<PatronDrawOrder>().SetStageDiverLayer();
@@ -170,6 +162,7 @@ public class StageDiveControls : MonoBehaviour
     {
         // Send the stage dive
         Patron patron = _activeStageDiver.GetComponent<Patron>();
+        _activeStageDiver.mass = patron.LaunchMass;
 
         switch (patron.patronType)
         {
@@ -188,7 +181,7 @@ public class StageDiveControls : MonoBehaviour
     private void StartBangerStageDive()
     {
         _activeStageDiver.simulated = true;
-        _activeStageDiver.AddForce(new Vector2(0f, -StageDiveForce), ForceMode2D.Impulse);
+        _activeStageDiver.AddForce(new Vector2(0f, - _activeStageDiver.GetComponent<Patron>().StageDiveForce), ForceMode2D.Impulse);
         _activeStageDiver.GetComponent<PatronAnimatorController>().StageDive();
         StartCoroutine(SetMass(_activeStageDiver));
         _activeStageDiver = null;
@@ -314,7 +307,7 @@ public class StageDiveControls : MonoBehaviour
 
         if(diver != null)
         {
-            diver.mass = 0.5f;
+            diver.mass = stageDiver.GetComponent<Patron>().IdleMass;
             diver.GetComponent<PatronAnimatorController>().Idle();
             diver.GetComponent<PatronDrawOrder>().SetCrowdLayer();
             diver = null;

@@ -318,6 +318,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   patronType: 1
+  IdleMass: 1
+  LaunchMass: 5
+  StageDiveForce: 250
   PitDeathTime: 0.56
   PointValue: 50
   _drawOrder: {fileID: 114457236778151232}
