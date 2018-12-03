@@ -7,14 +7,20 @@ public class CrowdSpawner : MonoBehaviour
     public PatronSpawner _spawner;
 
     public static int MaxCrowdSize = 20;
+    public static int MaxBonusModeCrowdSize = 30;
 
     public static List<GameObject> Patrons = new List<GameObject>();
+    public static List<GameObject> DrawOrderPatrons = new List<GameObject>();
+
     private BoxCollider2D spawnArea;
 
     private void Awake()
     {
         if (Patrons == null)
             Patrons = new List<GameObject>();
+
+        if (DrawOrderPatrons == null)
+            DrawOrderPatrons = new List<GameObject>();
     }
 
     private void Start()
@@ -33,7 +39,7 @@ public class CrowdSpawner : MonoBehaviour
             {
                 GameObject patron = SpawnPatron(position);
                 patron.GetComponent<PatronAnimatorController>().Idle();
-                Patrons.Add(patron);
+         
             }
         }
     }
@@ -53,11 +59,13 @@ public class CrowdSpawner : MonoBehaviour
     public static void AddPatron(GameObject patron)
     {
         Patrons.Add(patron);
+        DrawOrderPatrons.Add(patron);
     }
 
     public static void RemovePatron(GameObject patron)
     {
         Patrons.Remove(patron);
+        DrawOrderPatrons.Remove(patron);
     }
 
     public static int PatronCount()
@@ -86,64 +94,41 @@ public class CrowdSpawner : MonoBehaviour
             GameObject patron = _spawner.GetSpawnedPatron();
             patron.transform.position = position;
             patron.GetComponent<PatronAnimatorController>().Idle();
-            Patrons.Add(patron);
 
-            Rigidbody2D rigidbody2D = patron.GetComponent<Rigidbody2D>();
+            Rigidbody2D rigidBody2D = patron.GetComponent<Rigidbody2D>();
 
-            rigidbody2D.AddForce(new Vector2(0, -1000.0f));
+            rigidBody2D.AddForce(new Vector2(0, -1000.0f));
         }
     }
 
     // CBO - this is terribly inefficient and I'm sorry
-    private void UpdateDrawPositions()
+    private static void UpdateDrawPositions()
     {
-        List<GameObject> copy = new List<GameObject>();
-        foreach (GameObject patron in Patrons)
-            copy.Add(patron);
-        copy.Sort(CompareDrawPositions);
-        for (int i = 0; i < copy.Count; i++)
+        DrawOrderPatrons.Sort(CompareDrawPositions);
+        for (int i = DrawOrderPatrons.Count - 1; i >= 0; i--)
         {
             // CBO - scene restart issue
-            if (copy[i] == null)
+            if (DrawOrderPatrons[i] == null)
                 break;
 
-            copy[i].GetComponent<PatronDrawOrder>().SetIndex(i);
+            DrawOrderPatrons[i].GetComponent<PatronDrawOrder>().SetIndex(DrawOrderPatrons.Count - 1 - i);
         }
     }
 
-    private int CompareDrawPositions(GameObject x, GameObject y)
+    private static int CompareDrawPositions(GameObject x, GameObject y)
     {
         if (x == null)
         {
-            if (y == null)
-            {
-                return 0;
-            }
-            else
-            {
-                return 1;
-            }
-
+            return y == null ? 0 : 1;
         }
-        else
+
+        if (y == null)
         {
-            if (y == null)
-            {
-                return -1;
-            }
-            else
-            {
-                bool xGreater = x.transform.position.y > y.transform.position.y;
-
-                if (xGreater)
-                {
-                    return -1;
-                }
-                else
-                {
-                    return 1;
-                }
-            }
+            return -1;
         }
+
+        bool xGreater = x.transform.position.y > y.transform.position.y;
+
+        return xGreater ? -1 : 1;
     }
 }

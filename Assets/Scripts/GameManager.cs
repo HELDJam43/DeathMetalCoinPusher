@@ -57,7 +57,9 @@ public class GameManager : MonoBehaviour
         get;
         private set;
     }
+
     private const int BONUS_MODE_TARGET = 666;
+    private const int BONUS_MODE_MULTIPLIER = 2;
 
     private void Awake()
     {
@@ -103,7 +105,7 @@ public class GameManager : MonoBehaviour
     public void AddPoints(int points)
     {
         CurrentSacrifices += 1;
-        CurrentScore += points;
+        CurrentScore += !IsBonusMode ? points : points * BONUS_MODE_MULTIPLIER;
 
         if (!IsBonusMode)
         {
@@ -124,7 +126,7 @@ public class GameManager : MonoBehaviour
             CurrentBonusModeScore = BONUS_MODE_TARGET;
 
             // Start Bonus Mode
-            StartCoroutine("DoBonusMode");
+            StartCoroutine(DoBonusMode());
         }
     }
 
@@ -135,9 +137,9 @@ public class GameManager : MonoBehaviour
         musicManager.PlayFast();
 
         // Do bonus mode for as long as it takes to finish two rounds of the fast song
-        float lengthOfSong = 9.14f;
-        int numberOfRounds = 1;
-        yield return new WaitForSeconds(lengthOfSong * (float)numberOfRounds);
+        const float lengthOfSong = 9.14f;
+        const int numberOfRounds = 1;
+        yield return new WaitForSeconds(lengthOfSong * numberOfRounds);
 
         // Finish bonus mode
         IsBonusMode = false;

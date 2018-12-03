@@ -37,11 +37,6 @@ public class UIGameTimer : MonoBehaviour
             yield return new WaitForEndOfFrame();
             TimeLeft -= Time.deltaTime;
         }
-
-        if(TimeLeft == 0)
-        {
-            //Game Over
-        }
     }
 
     private IEnumerator StartGame()
@@ -67,6 +62,7 @@ public class UIGameTimer : MonoBehaviour
         {
             yield return null;
         }
+
         GameManager.CurrentGameState = GameManager.GameState.Ending;
         title.text = "GAME OVER";
         restartButton.SetActive(true);
