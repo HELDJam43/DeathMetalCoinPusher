@@ -46,6 +46,7 @@ public class UIGameTimer : MonoBehaviour
 
     private IEnumerator StartGame()
     {
+     
         MusicManager musicManager = GameObject.Find("MusicManager").GetComponent<MusicManager>();
         musicManager.PlayIntro();
         yield return new WaitForSeconds(1.45f);
@@ -57,6 +58,7 @@ public class UIGameTimer : MonoBehaviour
         yield return new WaitForSeconds(1.45f);
         title.text = "ROCK!";
         yield return new WaitForSeconds(0.20f);
+        GameManager.Instance.OnGameStartingEvent.Invoke(0);
         title.text = string.Empty;
         StartCoroutine(LoseTime());
         GameManager.CurrentGameState = GameManager.GameState.Play;

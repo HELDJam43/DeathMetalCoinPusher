@@ -8,6 +8,19 @@ public class Pit : MonoBehaviour
     [SerializeField]
     private Transform BottomRight;
 
+    [SerializeField]
+    private GameObject PitBlock;
+
+    private void Start()
+    {
+        GameManager.Instance.OnGameStartingEvent.AddListener(OnGameStartingEvent);
+    }
+
+    private void OnGameStartingEvent(int arg0)
+    {
+        PitBlock.SetActive(false);
+    }
+
     private void OnTriggerEnter2D(Collider2D collider)
     {
         Patron patron = collider.GetComponent<Patron>();
@@ -26,14 +39,7 @@ public class Pit : MonoBehaviour
 
         if (patX > dropPos.x)
         {
-            if (patX > BottomRight.position.x)
-            {
-                dropPos.x = BottomRight.position.x;
-            }
-            else
-            {
-                dropPos.x = patX;
-            }
+            dropPos.x = patX > BottomRight.position.x ? BottomRight.position.x : patX;
         }
 
         return dropPos;

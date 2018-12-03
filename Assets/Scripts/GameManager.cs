@@ -9,7 +9,7 @@ public class PointsAddedEvent : UnityEvent<int, int>
 
 }
 
-public class GameOverEvent : UnityEvent<int>
+public class GameStateEvent : UnityEvent<int>
 {
 
 }
@@ -30,7 +30,9 @@ public class GameManager : MonoBehaviour
     public PointsAddedEvent OnSacrificeAdded;
     public PointsAddedEvent OnPointsAdded;
     public PointsAddedEvent OnBonusPointsAdded;
-    public GameOverEvent OnGameOverEvent;
+
+    public GameStateEvent OnGameStartingEvent;
+    public GameStateEvent OnGameOverEvent;
 
     public int CurrentSacrifices
     {
@@ -75,7 +77,9 @@ public class GameManager : MonoBehaviour
             OnSacrificeAdded = new PointsAddedEvent();
             OnPointsAdded = new PointsAddedEvent();
             OnBonusPointsAdded = new PointsAddedEvent();
-            OnGameOverEvent = new GameOverEvent();
+
+            OnGameStartingEvent = new GameStateEvent();
+            OnGameOverEvent = new GameStateEvent();
         }
 
         // Init Scores

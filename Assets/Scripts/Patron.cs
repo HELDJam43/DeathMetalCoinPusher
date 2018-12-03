@@ -39,7 +39,7 @@ public class Patron : MonoBehaviour
     {
         _rigidBody = GetComponent<Rigidbody2D>();
         _rigidBody.mass = IdleMass;
-        InvokeRepeating("RandomForce", 3, Random.Range(0.25f, 1.0f));
+        InvokeRepeating("RandomForce", 2, Random.Range(0.25f, 1.0f));
     }
 
     public void StartPitDeath(Vector2 dropPos)
