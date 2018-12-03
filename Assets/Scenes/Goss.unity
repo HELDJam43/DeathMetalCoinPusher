@@ -215,6 +215,7 @@ MonoBehaviour:
   Patrons:
   - {fileID: 1984158485498978, guid: 8764752d2eadb40eeadb6d7edebff623, type: 2}
   - {fileID: 1673807261657618, guid: 07ab8dcab7a1e498f965018d45117851, type: 2}
+  - {fileID: 1707392414205058, guid: 035a62857a58b46dcb444f28e42bc3ae, type: 2}
   door: 1
   force: 5
 --- !u!4 &245238631
@@ -545,6 +546,21 @@ Prefab:
         type: 2}
       propertyPath: m_isInputParsingRequired
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224714209687093936, guid: d9c6a08d3ac43794d9fd34626be9c8bd,
+        type: 2}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224714209687093936, guid: d9c6a08d3ac43794d9fd34626be9c8bd,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224714209687093936, guid: d9c6a08d3ac43794d9fd34626be9c8bd,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d9c6a08d3ac43794d9fd34626be9c8bd, type: 2}
@@ -1300,6 +1316,7 @@ MonoBehaviour:
   Patrons:
   - {fileID: 1984158485498978, guid: 8764752d2eadb40eeadb6d7edebff623, type: 2}
   - {fileID: 1673807261657618, guid: 07ab8dcab7a1e498f965018d45117851, type: 2}
+  - {fileID: 1707392414205058, guid: 035a62857a58b46dcb444f28e42bc3ae, type: 2}
   door: 0
   force: 5
 --- !u!4 &1924221112

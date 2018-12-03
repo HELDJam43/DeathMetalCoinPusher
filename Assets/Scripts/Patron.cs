@@ -6,7 +6,8 @@ public class Patron : MonoBehaviour
     public enum PatronType
     {
         Banger,
-        Swinger
+        Swinger,
+        BigGuy
     }
 
     public PatronType patronType = PatronType.Banger;

@@ -179,6 +179,9 @@ public class StageDiveControls : MonoBehaviour
             case Patron.PatronType.Swinger:
                 StartSwingerStageDive();
                 break;
+            case Patron.PatronType.BigGuy:
+                StartBangerStageDive();
+                break;
         }
     }
 
