@@ -17,9 +17,24 @@ public class PatronSpawner : MonoBehaviour
     [SerializeField]
     private GameObject[] Patrons;
 
+    [SerializeField]
+    private float[] SpawnRates;
+
     private GameObject GetRandomPatronPrefab()
     {
-        return Patrons[Random.Range(0, Patrons.Length)];
+        int idx = 0;
+        float rand = Random.Range(0f, 100f);
+        float curCheck = 0f;
+        for (int i = 0; i < SpawnRates.Length; i++)
+        {
+            if (rand < SpawnRates[i] + curCheck)
+            {
+                idx = i;
+                break;
+            }
+            curCheck += SpawnRates[i];
+        }
+        return Patrons[idx];
     }
 
     public Door door = Door.Left;

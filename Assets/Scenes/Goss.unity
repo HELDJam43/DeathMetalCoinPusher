@@ -216,6 +216,10 @@ MonoBehaviour:
   - {fileID: 1984158485498978, guid: 8764752d2eadb40eeadb6d7edebff623, type: 2}
   - {fileID: 1673807261657618, guid: 07ab8dcab7a1e498f965018d45117851, type: 2}
   - {fileID: 1707392414205058, guid: 035a62857a58b46dcb444f28e42bc3ae, type: 2}
+  SpawnRates:
+  - 55
+  - 25
+  - 10
   door: 1
   force: 5
 --- !u!4 &245238631
@@ -1317,6 +1321,10 @@ MonoBehaviour:
   - {fileID: 1984158485498978, guid: 8764752d2eadb40eeadb6d7edebff623, type: 2}
   - {fileID: 1673807261657618, guid: 07ab8dcab7a1e498f965018d45117851, type: 2}
   - {fileID: 1707392414205058, guid: 035a62857a58b46dcb444f28e42bc3ae, type: 2}
+  SpawnRates:
+  - 55
+  - 25
+  - 10
   door: 0
   force: 5
 --- !u!4 &1924221112
