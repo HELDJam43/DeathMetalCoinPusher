@@ -8,7 +8,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Goss.unity
     guid: 4b3d1dd1610110944b73a4b6620cc7fe
+  - enabled: 1
+    path: Assets/Scenes/DMCP_Phone.unity
+    guid: 73279c1b9c6b718498cc1c57e263e070
   m_configObjects: {}
